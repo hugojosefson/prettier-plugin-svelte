@@ -326,7 +326,7 @@ export function print(path: FastPath, options: ParserOptions, print: PrintFn): D
                         '{#await ',
                         printJS(path, print, 'expression'),
                         ' then ',
-                        node.value ? node.value : '',
+                        node.value ? printJS(path, print, 'value') : '',
                         '}',
                     ])),
                     indent(path.call(print, 'then'))
@@ -340,7 +340,7 @@ export function print(path: FastPath, options: ParserOptions, print: PrintFn): D
 
                 if (hasThenBlock) {
                     block.push(
-                        group(concat(['{:then', node.value ? ' ' + node.value : '', '}'])),
+                        group(concat(['{:then', node.value ? ' ' + printJS(path, print, 'value') : '', '}'])),
                         indent(path.call(print, 'then'))
                     )
                 }
@@ -348,7 +348,7 @@ export function print(path: FastPath, options: ParserOptions, print: PrintFn): D
 
             if (hasCatchBlock) {
                 block.push(
-                    group(concat(['{:catch', node.error ? ' ' + node.error : '', '}'])),
+                    group(concat(['{:catch', node.error ? ' ' + printJS(path, print, 'error') : '', '}'])),
                     indent(path.call(print, 'catch'))
                 )
             }
