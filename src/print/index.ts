@@ -457,6 +457,23 @@ export function print(path: FastPath, options: ParserOptions, print: PrintFn): D
             return concat(['{@html ', printJS(path, print, 'expression'), '}']);
         case 'Spread':
             return concat([line, '{...', printJS(path, print, 'expression'), '}']);
+        case 'Literal':
+            return node.raw;
+        case 'BinaryExpression':
+        case 'LogicalExpression':
+            return concat([
+                printJS(path, print, 'left'),
+                ' ',
+                node.operator,
+                ' ',
+                printJS(path, print, 'right')
+            ]);
+        case 'MemberExpression':
+            return concat([
+                printJS(path, print, 'object'),
+                '.',
+                printJS(path, print, 'property')
+            ]);
     }
 
     console.log(JSON.stringify(node, null, 4));

@@ -221,6 +221,32 @@ export interface SpreadNode extends BaseNode {
     expression: Node;
 }
 
+export interface LiteralNode extends BaseNode {
+    type: 'Literal';
+    raw: string;
+}
+
+export interface BinaryExpressionNode extends BaseNode {
+    type: 'BinaryExpression';
+    left: Node;
+    operator: string;
+    right: Node;
+}
+
+export interface LogicalExpressionNode extends BaseNode {
+    type: 'LogicalExpression';
+    left: Node;
+    operator: string;
+    right: Node;
+}
+
+export interface MemberExpressionNode extends BaseNode {
+    type: 'MemberExpression';
+    object: Node;
+    property: Node;
+    computed: boolean;
+}
+
 export interface InstanceScriptNode extends BaseNode {
     type: 'InstanceScript';
     context: string;
@@ -281,6 +307,10 @@ export type Node =
     | AnimationNode
     | RawMustacheTagNode
     | SpreadNode
+    | LiteralNode
+    | BinaryExpressionNode
+    | LogicalExpressionNode
+    | MemberExpressionNode
     | InstanceScriptNode
     | ModuleScriptNode
     | BodyNode
