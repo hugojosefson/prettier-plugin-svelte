@@ -18,6 +18,7 @@ const {
     breakParent,
     literalline
 } = doc.builders;
+const { printDocToString } = doc.printer;
 
 export type PrintFn = (path: FastPath) => Doc;
 
@@ -459,8 +460,7 @@ export function print(path: FastPath, options: ParserOptions, print: PrintFn): D
             return concat([line, '{...', printJS(path, print, 'expression'), '}']);
     }
 
-    console.log(JSON.stringify(node, null, 4));
-    throw new Error('unknown node type: ' + node.type);
+    return printDocToString(n, options).formatted;
 }
 
 function isEmptyGroup(group: Doc[]): boolean {
